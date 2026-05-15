@@ -6,7 +6,10 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      setIsMobileMenuOpen(false);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -33,6 +36,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection('home')}
+            aria-label="Go to top"
             className="flex items-center gap-2"
           >
             <span className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">JD</span>
@@ -55,13 +59,16 @@ export function Header() {
           <button
             className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {isMobileMenuOpen && (
-          <ul className="md:hidden mt-4 space-y-4 pb-4 border-t border-gray-800 pt-4">
+          <ul id="mobile-menu" className="md:hidden mt-4 space-y-4 pb-4 border-t border-gray-800 pt-4">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button

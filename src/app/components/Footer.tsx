@@ -18,22 +18,24 @@ export function Footer() {
               href="https://linkedin.com/in/judgedice"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
               className="p-2 border border-gray-800 rounded-lg text-gray-500 hover:text-blue-400 hover:border-blue-500/50 transition-colors"
             >
-              <Linkedin size={18} />
+              <Linkedin size={18} aria-hidden="true" />
             </a>
             <a
               href="mailto:judge@judgedice.com"
+              aria-label="Send email to judge@judgedice.com"
               className="p-2 border border-gray-800 rounded-lg text-gray-500 hover:text-blue-400 hover:border-blue-500/50 transition-colors"
             >
-              <Mail size={18} />
+              <Mail size={18} aria-hidden="true" />
             </a>
           </div>
         </div>
 
         <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="text-gray-600 text-sm">
-            &copy; 2000—2026 judgedice.com
+            &copy; 2000—{new Date().getFullYear()} judgedice.com
           </p>
           <p className="text-gray-600 text-sm italic">
             Built by the proprietor. No cookies, no tracking, no nonsense.
