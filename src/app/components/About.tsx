@@ -23,7 +23,7 @@ export function About() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
@@ -43,7 +43,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 mb-6">
@@ -53,7 +53,7 @@ export function About() {
             </div>
 
             <blockquote className="border-l-2 border-blue-500 pl-6">
-              <p className="text-gray-300 text-lg italic leading-relaxed">
+              <p className="text-gray-300 text-lg italic leading-relaxed" style={{ fontFamily: "'Instrument Serif', serif" }}>
                 "My specialty is the space where strategy and implementation collide — where a roadmap stops
                 being a PowerPoint and starts being a thing that actually works in production."
               </p>
@@ -62,7 +62,7 @@ export function About() {
 
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-1"
           >
@@ -70,7 +70,7 @@ export function About() {
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
                 className="flex gap-4 py-2.5 border-b border-gray-800 last:border-0"
               >
@@ -86,7 +86,7 @@ export function About() {
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <p className="text-gray-500 text-xs tracking-widest uppercase mb-4">Client Brands</p>

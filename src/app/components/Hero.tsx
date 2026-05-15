@@ -45,7 +45,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl text-gray-300 mb-3 italic"
+            className="text-xl text-gray-300 mb-3 italic" style={{ fontFamily: "'Instrument Serif', serif" }}
           >
             "Professional translator between 'what you want' and 'what's technically possible.'"
           </motion.p>
@@ -103,26 +103,23 @@ export function Hero() {
               href="https://linkedin.com/in/judgedice"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="LinkedIn profile"
               className="p-2 border border-gray-700 rounded-lg text-gray-400 hover:border-blue-500 hover:text-blue-400 transition-colors bg-gray-800/50"
             >
-              <Linkedin size={20} aria-hidden="true" />
+              <Linkedin size={20} />
             </a>
             <a
               href="mailto:judge@judgedice.com"
-              aria-label="Send email to judge@judgedice.com"
               className="p-2 border border-gray-700 rounded-lg text-gray-400 hover:border-blue-500 hover:text-blue-400 transition-colors bg-gray-800/50"
             >
-              <Mail size={20} aria-hidden="true" />
+              <Mail size={20} />
             </a>
             <a
               href="https://judgedice.com"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Visit judgedice.com"
               className="p-2 border border-gray-700 rounded-lg text-gray-400 hover:border-blue-500 hover:text-blue-400 transition-colors bg-gray-800/50"
             >
-              <ExternalLink size={20} aria-hidden="true" />
+              <ExternalLink size={20} />
             </a>
           </motion.div>
         </div>

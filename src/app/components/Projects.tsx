@@ -10,7 +10,7 @@ export function Projects() {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
@@ -26,7 +26,7 @@ export function Projects() {
         <div className="grid md:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
@@ -50,17 +50,17 @@ export function Projects() {
 
           <motion.div
             initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-4"
           >
             <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-xl p-6">
-              <p className="text-blue-300 text-lg font-medium italic leading-relaxed">
+              <p className="text-blue-300 text-lg font-medium italic leading-relaxed" style={{ fontFamily: "'Instrument Serif', serif" }}>
                 "Automate the grind — not the expertise."
               </p>
             </div>
             <div className="bg-gradient-to-br from-purple-900/20 to-gray-800/40 border border-purple-500/20 rounded-xl p-6">
-              <p className="text-purple-300 text-lg font-medium italic leading-relaxed">
+              <p className="text-purple-300 text-lg font-medium italic leading-relaxed" style={{ fontFamily: "'Instrument Serif', serif" }}>
                 "More demand than awareness."
               </p>
             </div>
