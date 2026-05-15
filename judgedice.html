@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Judge S. DiCesaro — judgedice.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0d0d10;
+    --bg-2: #14141a;
+    --bg-3: #1a1a22;
+    --ink: #f2efe8;
+    --ink-dim: #b9b3a4;
+    --ink-mute: #6c6657;
+    --rule: rgba(242, 239, 232, 0.10);
+    --rule-strong: rgba(242, 239, 232, 0.22);
+    --accent: #2b7fff;     /* electric blue */
+    --accent-soft: #5da3ff;
+    --serif: "Instrument Serif", "Source Serif Pro", ui-serif, Georgia, serif;
+    --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection { background: var(--accent); color: white; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ----- Layout ----- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  @media (max-width: 720px) { .wrap { padding: 0 22px; } }
+
+  /* ----- Nav ----- */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(13, 13, 16, 0.72);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav.top .row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .monogram {
+    font-family: var(--serif);
+    font-size: 30px; line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+    font-style: italic;
+    display: inline-flex; align-items: baseline; gap: 8px;
+  }
+  .monogram .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    box-shadow: 0 0 14px var(--accent);
+    transform: translateY(-2px);
+  }
+  nav ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; gap: 30px; align-items: center;
+  }
+  nav ul a {
+    font-size: 14px; color: var(--ink-dim);
+    transition: color .15s ease;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+  }
+  nav ul a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+  @media (max-width: 760px) {
+    nav ul { gap: 16px; }
+    nav ul a { font-size: 13px; }
+  }
+  @media (max-width: 520px) {
+    nav ul li.connect-only { display: none; }
+  }
+
+  /* ----- Section markers ----- */
+  .marker {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .marker::before {
+    content: ""; width: 28px; height: 1px; background: var(--accent);
+    display: inline-block;
+  }
+
+  /* ----- HERO ----- */
+  section.hero {
+    position: relative; overflow: hidden;
+    padding: 110px 0 130px;
+    background:
+      radial-gradient(900px 600px at 78% 18%, rgba(43,127,255,0.18), transparent 60%),
+      radial-gradient(700px 500px at 10% 90%, rgba(43,127,255,0.10), transparent 60%),
+      linear-gradient(180deg, #0d0d10 0%, #14141a 100%);
+  }
+  .hero .chevron-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(135deg, transparent 49.5%, rgba(242,239,232,0.04) 49.5%, rgba(242,239,232,0.04) 50.5%, transparent 50.5%);
+    background-size: 60px 60px;
+    opacity: 0.6;
+    pointer-events: none;
+    mask-image: radial-gradient(900px 700px at 70% 50%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(900px 700px at 70% 50%, black 0%, transparent 70%);
+  }
+  .hero .inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 920px) { .hero .inner { grid-template-columns: 1fr; gap: 48px; } }
+
+  h1.tagline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(56px, 8.6vw, 124px);
+    line-height: 1.04;
+    letter-spacing: -0.012em;
+    margin: 22px 0 0;
+    color: var(--ink);
+    text-wrap: balance;
+    padding-bottom: 8px;
+  }
+  h1.tagline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero .sub {
+    margin-top: 48px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+    max-width: 540px;
+  }
+  .hero .sub b { color: var(--ink); font-weight: 600; }
+
+  .hero .now {
+    margin-top: 36px;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+  .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #5dd6a0; position: relative;
+    box-shadow: 0 0 0 0 rgba(93,214,160, 0.6);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(93,214,160, 0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(93,214,160, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(93,214,160, 0); }
+  }
+
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 420px;
+    margin-left: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(135deg, rgba(43,127,255,0.10) 0 12px, rgba(43,127,255,0.04) 12px 24px),
+      linear-gradient(180deg, #1a1a22, #0d0d10);
+    box-shadow: 0 0 0 1px var(--rule-strong), 0 30px 80px -20px rgba(43,127,255,0.4);
+  }
+  .hero-portrait::after {
+    content: "[ portrait of judge — drop in ]";
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+  .hero-portrait .ring {
+    position: absolute; inset: -20px;
+    border: 1px dashed rgba(43,127,255,0.35);
+    border-radius: 50%;
+    animation: spin 60s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .latin {
+    margin-top: 18px;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent-soft);
+    font-size: 22px;
+    letter-spacing: 0.01em;
+  }
+  .latin .gloss {
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    color: var(--ink-mute);
+    margin-top: 6px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ----- Section base ----- */
+  section.bay {
+    padding: 120px 0;
+    border-top: 1px solid var(--rule);
+  }
+  section.bay h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 5.6vw, 76px);
+    line-height: 1.04;
+    margin: 18px 0 0;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  section.bay h2 em { font-style: italic; color: var(--accent); }
+  section.bay .lede {
+    font-size: 20px; line-height: 1.55;
+    color: var(--ink-dim);
+    margin: 28px 0 0;
+    max-width: 760px;
+  }
+
+  /* ----- Work Life ----- */
+  .currently {
+    margin-top: 70px;
+    display: grid; grid-template-columns: 220px 1fr; gap: 40px;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (max-width: 720px) { .currently { grid-template-columns: 1fr; gap: 14px; } }
+  .currently .label {
+    font-family: var(--mono);
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--ink-mute);
+    padding-top: 6px;
+  }
+  .currently .body {
+    font-size: 19px; line-height: 1.5; color: var(--ink);
+  }
+  .currently .body b { color: var(--accent-soft); font-weight: 600; }
+
+  .pull {
+    margin: 90px 0 0;
+    padding: 0 0 0 28px;
+    border-left: 2px solid var(--accent);
+    max-width: 820px;
+  }
+  .pull blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.18;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .pull cite {
+    display: block;
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-mute);
+    font-style: normal;
+  }
+
+  /* Career arc */
+  .arc { margin-top: 90px; }
+  .arc h3 {
+    font-family: var(--mono);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--ink-mute);
+    margin: 0 0 28px;
+    font-weight: 500;
+  }
+  .arc-list { display: grid; gap: 0; }
+  .arc-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 1fr;
+    gap: 32px;
+    padding: 22px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .arc-row:last-child { border-bottom: 1px solid var(--rule); }
+  .arc-row:hover { background: linear-gradient(90deg, rgba(43,127,255,0.05), transparent 70%); }
+  .arc-row .year {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .arc-row .role {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .arc-row .where {
+    font-size: 15px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+  }
+  @media (max-width: 720px) {
+    .arc-row { grid-template-columns: 1fr; gap: 4px; padding: 18px 0; }
+    .arc-row .role { font-size: 22px; }
+  }
+
+  /* Client logos / strip */
+  .clients {
+    margin-top: 100px;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .clients .label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 18px; }
+  .client-grid {
+    display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center;
+  }
+  .client-grid span {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: var(--ink-dim);
+    letter-spacing: -0.01em;
+  }
+  .client-grid span:hover { color: var(--ink); }
+
+  /* ----- Home Life ----- */
+  section.home-life {
+    background:
+      radial-gradient(800px 500px at 100% 0%, rgba(43,127,255,0.10), transparent 60%),
+      linear-gradient(180deg, #0d0d10, #0b0b0e);
+  }
+  .home-grid {
+    margin-top: 60px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  }
+  @media (max-width: 820px) { .home-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .home-grid p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    margin: 0 0 22px;
+  }
+  .home-grid p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 80px;
+    float: left;
+    line-height: 0.85;
+    padding: 8px 14px 0 0;
+    color: var(--accent);
+  }
+  .home-grid p b { color: var(--ink); font-weight: 600; }
+
+  .home-side {
+    display: flex; flex-direction: column; gap: 26px;
+  }
+  .card {
+    padding: 28px 28px;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.015);
+  }
+  .card .k {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 10px;
+  }
+  .card .v {
+    font-family: var(--serif);
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .card .v em { font-style: italic; color: var(--accent); }
+
+  /* ----- Exciting Stuff (editorial blocks) ----- */
+  .services {
+    margin-top: 60px;
+    counter-reset: svc;
+  }
+  .service {
+    display: grid;
+    grid-template-columns: 110px 1fr 1.2fr;
+    gap: 40px;
+    padding: 44px 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .service:last-child { border-bottom: 1px solid var(--rule); }
+  .service::before {
+    counter-increment: svc;
+    content: "0" counter(svc);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    padding-top: 12px;
+  }
+  .service h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.08;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .service .body {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+  }
+  .service .tags {
+    margin-top: 14px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .service .tags span {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    padding: 4px 10px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+  }
+  @media (max-width: 880px) {
+    .service { grid-template-columns: 60px 1fr; gap: 18px; }
+    .service .body { grid-column: 2; }
+  }
+
+  /* ----- Connect ----- */
+  section.connect {
+    background:
+      radial-gradient(700px 500px at 50% 0%, rgba(43,127,255,0.22), transparent 60%),
+      linear-gradient(180deg, #0d0d10, #0b0b0e);
+    padding: 130px 0 110px;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .connect h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 1;
+    margin: 22px 0 0;
+    letter-spacing: -0.01em;
+  }
+  .connect h2 em { color: var(--accent); font-style: italic; }
+  .connect .pitch {
+    margin: 28px auto 0;
+    max-width: 640px;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+  }
+  .email-cta {
+    margin-top: 50px;
+    display: inline-flex; align-items: center; gap: 16px;
+    padding: 22px 32px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: white;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-style: italic;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 20px 50px -20px rgba(43,127,255,0.8), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .email-cta:hover { transform: translateY(-2px); box-shadow: 0 30px 70px -20px rgba(43,127,255,0.9), inset 0 1px 0 rgba(255,255,255,0.2); }
+  .email-cta .arrow { font-family: var(--sans); font-style: normal; font-size: 22px; }
+
+  .socials {
+    margin: 50px 0 0;
+    display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: center;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+  .socials a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 4px;
+    border-bottom: 1px solid transparent;
+  }
+  .socials a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+  .socials .glyph {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* ----- Footer ----- */
+  footer.foot {
+    padding: 50px 0 60px;
+    border-top: 1px solid var(--rule);
+    background: #08080b;
+  }
+  footer.foot .row {
+    display: flex; justify-content: space-between; align-items: center; gap: 30px;
+    flex-wrap: wrap;
+  }
+  footer .small {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-mute);
+    letter-spacing: 0.06em;
+  }
+  footer .colofon {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-mute);
+    text-align: right;
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+  footer .colofon b { color: var(--ink-dim); font-weight: 500; }
+
+  /* anchor offset for sticky nav */
+  section[id] { scroll-margin-top: 90px; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap row">
+    <a href="#top" class="monogram" aria-label="JD home">
+      JD<span class="dot" aria-hidden="true"></span>
+    </a>
+    <ul>
+      <li><a href="#work">Work Life</a></li>
+      <li><a href="#home">Home Life</a></li>
+      <li><a href="#stuff">The Exciting Stuff</a></li>
+      <li class="connect-only"><a href="#connect">Connect</a></li>
+    </ul>
+  </div>
+</nav>
+
+<a id="top" aria-hidden="true"></a>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero">
+  <div class="chevron-bg" aria-hidden="true"></div>
+  <div class="wrap inner">
+    <div>
+      <div class="marker">judgedice.com — est. way back</div>
+      <h1 class="tagline">Delivering <em>Joy</em> since the turn of the&nbsp;Century.</h1>
+      <p class="sub">
+        <b>Judge S. DiCesaro.</b> Principal Solutions Architect. Adobe Experience Cloud specialist. Professional translator between &lsquo;what you want&rsquo; and &lsquo;what&rsquo;s technically possible.&rsquo;
+      </p>
+      <div class="latin">
+        &ldquo;Putatis ergo sum.&rdquo;
+        <span class="gloss">— You think, therefore I am.</span>
+      </div>
+      <div class="now">
+        <span class="pulse" aria-hidden="true"></span>
+        Currently: shipping marketing ops infrastructure for JLL · prepping an Adobe Summit demo
+      </div>
+    </div>
+    <div>
+      <div class="hero-portrait" role="img" aria-label="Portrait placeholder">
+        <div class="ring" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WORK LIFE
+============================================================ -->
+<section class="bay" id="work">
+  <div class="wrap">
+    <div class="marker">Section 01 · Work Life</div>
+    <h2>I&rsquo;ve been building things on the internet since <em>before it was cool.</em></h2>
+    <p class="lede">
+      That sounds like a humble brag, but it&rsquo;s mostly just true. What started as Flash development at McKinsey turned into a 25-year career in digital architecture, marketing technology, and explaining APIs to CMOs.
+    </p>
+
+    <div class="currently">
+      <div class="label">Currently</div>
+      <div class="body">
+        Principal Solutions Architect at <b>WillowTree</b> (by way of Maark, acquired 2023). I design and build digital marketing systems for enterprise clients on the Adobe Experience Cloud — the space where strategy and implementation collide, where a roadmap stops being a PowerPoint and starts being a thing that actually works in production.
+      </div>
+    </div>
+
+    <div class="pull">
+      <blockquote>
+        &ldquo;My specialty is the space where strategy and implementation collide — where a roadmap stops being a PowerPoint and starts being a thing that actually works in production.&rdquo;
+      </blockquote>
+      <cite>— from the long version of this page</cite>
+    </div>
+
+    <div class="arc">
+      <h3>Career arc · 2000 → now</h3>
+      <div class="arc-list">
+        <div class="arc-row">
+          <div class="year">2000 — 04</div>
+          <div class="role">Flash Developer</div>
+          <div class="where">McKinsey &amp; Company. The beginning. ActionScript, timeline tweens, a lot of opinions about the Bandwidth Profiler.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2004 — 08</div>
+          <div class="role">Founder</div>
+          <div class="where">The Flash Ministry — a web application firm in Chicago. Naming things has always been my favourite part.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2008 — 11</div>
+          <div class="role">Partner &amp; Developer</div>
+          <div class="where">Pixelwelders. Production, partnership, and a sustained education in how studios actually run.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2011 — 15</div>
+          <div class="role">Development Director</div>
+          <div class="where">Vertical Inc. — digital media, Chicago. The Flash → JavaScript migration in real time.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2015 — 19</div>
+          <div class="role">Digital Strategist &amp; Lead Solutions Architect</div>
+          <div class="where">Hanson Dodge. The pivot from &ldquo;person who builds it&rdquo; to &ldquo;person who decides what gets built.&rdquo;</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2019 — 21</div>
+          <div class="role">Solutions Architect</div>
+          <div class="where">Velir. Deep work in Adobe Experience Manager and enterprise CMS architecture.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2021 — now</div>
+          <div class="role">Principal Solutions Architect</div>
+          <div class="where">Maark → WillowTree (acquired). Adobe Experience Cloud end-to-end. JLL, Wyndham, SECU, Fox Sports, HBO, Advance Auto, and a handful under NDA.</div>
+        </div>
+        <div class="arc-row">
+          <div class="year">2019 — now</div>
+          <div class="role">Instructor — Search Engine Marketing</div>
+          <div class="where">Chicago Portfolio School. Passing things forward.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clients">
+      <div class="label">Brands I&rsquo;ve shipped for</div>
+      <div class="client-grid">
+        <span>JLL</span>
+        <span>Wyndham Hotels</span>
+        <span>SECU</span>
+        <span>Fox Sports</span>
+        <span>HBO</span>
+        <span>Advance Auto Parts</span>
+        <span class="muted" style="color:var(--ink-mute)">+ several under NDA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     HOME LIFE
+============================================================ -->
+<section class="bay home-life" id="home">
+  <div class="wrap">
+    <div class="marker">Section 02 · Home Life</div>
+    <h2>The <em>exhale</em> after the resume.</h2>
+
+    <div class="home-grid">
+      <div>
+        <p>
+          When I&rsquo;m not untangling enterprise tech stacks, I&rsquo;m probably driving someone to band practice, arguing about something mundane, or thinking about work anyway.
+        </p>
+        <p>
+          I have a family that puts up with me. I&rsquo;ve been in the Midwest long enough to have opinions about the winters. I believe strongly in the power of a good lunch — <b>there is no competing with free lunch, the gravity is too strong.</b>
+        </p>
+        <p>
+          I&rsquo;ve been on the internet since before it had a GUI. Somehow that became a career. Still figuring out if that was a good thing.
+        </p>
+        <p>
+          The truth is I got into this work because I liked building things that didn&rsquo;t exist yet. That&rsquo;s still true. The tools have changed a lot — Flash is dead, long live the API — but the feeling of shipping something that works is the same.
+        </p>
+      </div>
+
+      <div class="home-side">
+        <div class="card">
+          <div class="k">A note to myself</div>
+          <div class="v"><em>&ldquo;Automate the grind&mdash;</em><br/>not the expertise.&rdquo;</div>
+        </div>
+        <div class="card">
+          <div class="k">Another note</div>
+          <div class="v"><em>&ldquo;More demand</em><br/>than awareness.&rdquo;</div>
+        </div>
+        <div class="card">
+          <div class="k">Coordinates</div>
+          <div class="v">Midwest, mostly.<br/>Some Latin in the bio.<br/>Responsive on email.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE EXCITING STUFF
+============================================================ -->
+<section class="bay" id="stuff">
+  <div class="wrap">
+    <div class="marker">Section 03 · The Exciting Stuff</div>
+    <h2>What I actually do, <em>in plain English.</em></h2>
+    <p class="lede">
+      If you&rsquo;re looking for a stack of certifications listed in order of obscurity, I can provide that too. But this is the version people tend to find more useful.
+    </p>
+
+    <div class="services">
+      <article class="service">
+        <h3>Marketing Technology Architecture</h3>
+        <div class="body">
+          Designing end-to-end digital marketing systems that hold together under real conditions. I work across strategy, platform selection, integration design, and implementation &mdash; so you don&rsquo;t end up with a beautiful roadmap that nobody can build.
+          <div class="tags">
+            <span>Strategy → ship</span>
+            <span>Platform selection</span>
+            <span>Integration design</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="service">
+        <h3>Adobe Experience Cloud</h3>
+        <div class="body">
+          AEM, Adobe Journey Optimizer, Workfront, Target, AEP. I&rsquo;ve shipped all of it across multiple industries. I can tell you which parts to use, which parts to skip, and which parts will require a 2-day SLA from the partner portal that&rsquo;ll come back as a different ticket. (I have stories.)
+          <div class="tags">
+            <span>AEM</span><span>AJO</span><span>Workfront</span><span>Target</span><span>AEP</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="service">
+        <h3>Marketing Operations &amp; Automation</h3>
+        <div class="body">
+          Building the workflows, integrations, and automations that let marketing teams actually use the platforms they&rsquo;ve paid for. Workfront project hierarchies, Smartsheet integrations, webhook-triggered pipelines, approval flows that don&rsquo;t require a PhD. The operational layer that makes the strategy real.
+          <div class="tags">
+            <span>Workfront</span><span>Smartsheet + API</span><span>Webhooks</span><span>Approval flows</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="service">
+        <h3>Workshop Design &amp; Facilitation</h3>
+        <div class="body">
+          I&rsquo;ve run a lot of them. Discovery, architecture, stakeholder alignment. I know how to get a room full of people with competing priorities to walk out with decisions made and next steps owned. This is harder than it sounds.
+          <div class="tags">
+            <span>Discovery</span><span>Architecture</span><span>Alignment</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="service">
+        <h3>Digital Strategy &amp; Solutions Architecture</h3>
+        <div class="body">
+          The part that comes before the build. What are we actually trying to do? What does the ecosystem need to look like? What do we build first, and what do we defer? This is where 25 years of pattern-matching comes in handy.
+          <div class="tags">
+            <span>Roadmapping</span><span>Sequencing</span><span>Pattern-matching</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="service">
+        <h3>Instructor &amp; Consulting</h3>
+        <div class="body">
+          I teach Search Engine Marketing at the Chicago Portfolio School. I also consult on digital projects for educational programs. If you&rsquo;re building a team or a curriculum, I can help.
+          <div class="tags">
+            <span>Teaching</span><span>Curriculum</span><span>Mentorship</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONNECT
+============================================================ -->
+<section class="connect" id="connect">
+  <div class="wrap">
+    <div class="marker" style="justify-content:center">Section 04 · Connect</div>
+    <h2>Let&rsquo;s find <em>30 minutes.</em></h2>
+    <p class="pitch">
+      I&rsquo;m responsive on email, better on a quick call, and frankly not great at LinkedIn DMs. If you&rsquo;re working on something in the Adobe Experience Cloud space and need a senior architect &mdash; or just someone to talk through a hairy integration &mdash; I&rsquo;m interested.
+    </p>
+
+    <a class="email-cta" href="mailto:judge@judgedice.com">
+      judge@judgedice.com <span class="arrow">→</span>
+    </a>
+
+    <nav class="socials" aria-label="Elsewhere">
+      <a href="https://linkedin.com/in/judgedice"><span class="glyph">in</span>linkedin.com/in/judgedice</a>
+      <a href="https://flickr.com/photos/judgedice"><span class="glyph">◐</span>flickr.com/photos/judgedice</a>
+      <a href="https://x.com/judgedice"><span class="glyph">𝕏</span>@judgedice</a>
+      <a href="https://tiktok.com/@judgedice"><span class="glyph">♪</span>@judgedice on TikTok</a>
+      <a href="#"><span class="glyph">Ae</span>Adobe Experience League</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="foot">
+  <div class="wrap row">
+    <div>
+      <a href="#top" class="monogram" style="font-size:22px">
+        JD<span class="dot" aria-hidden="true"></span>
+      </a>
+      <div class="small" style="margin-top:8px">Judge S. DiCesaro &middot; Principal Solutions Architect</div>
+    </div>
+    <div class="colofon">
+      © 2000—2026 &middot; <b>judgedice.com</b><br/>
+      Built by the proprietor.<br/>
+      No cookies, no tracking, no nonsense.
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
